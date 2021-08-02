@@ -55,9 +55,8 @@ from . import humanbytes as hb
     pattern="tr",
 )
 async def _(event):
-    if len(event.text) > 3:
-        if not event.text[3] == " ":
-            return
+    if len(event.text) > 3 and event.text[3] != " ":
+        return
     input = event.text[4:6]
     txt = event.text[7:]
     xx = await eor(event, "`Translating...`")

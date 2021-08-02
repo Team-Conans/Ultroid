@@ -135,7 +135,7 @@ async def _(event):
                     ):
                         await msg.edit("Try again after 5 mins.")
                         return
-                if len(fedList) == 0:
+                if not fedList:
                     await msg.edit(
                         f"Unable to collect FedAdminList. Retrying ({a+1}/3)...",
                     )
@@ -155,7 +155,7 @@ async def _(event):
                     In = True
             elif In:
                 tempFedId += x
-        if len(fedList) == 0:
+        if not fedList:
             await msg.edit("Unable to collect FedAdminList.")
             return
     await msg.edit(f"FBaning in {len(fedList)} feds.")
@@ -207,12 +207,8 @@ async def _(event):
                 except BaseException:
                     pass
             arg = event.text.split(" ", maxsplit=2)
-            if len(arg) > 2:
-                FBAN = arg[1]
-                REASON = arg[2]  # rose unbans now can have reasons
-            else:
-                FBAN = arg[1]
-                REASON = ""
+            REASON = arg[2] if len(arg) > 2 else ""
+            FBAN = arg[1]
         else:
             FBAN = previous_message.sender_id
             try:
@@ -276,7 +272,7 @@ async def _(event):
                     ):
                         await msg.edit("Try again after 5 mins.")
                         return
-                if len(fedList) == 0:
+                if not fedList:
                     await msg.edit(
                         f"Unable to collect FedAdminList. Retrying ({a+1}/3)...",
                     )
@@ -296,7 +292,7 @@ async def _(event):
                     In = True
             elif In:
                 tempFedId += x
-        if len(fedList) == 0:
+        if not fedList:
             await msg.edit("Unable to collect FedAdminList.")
             return
     await msg.edit(f"UnFBaning in {len(fedList)} feds.")

@@ -104,9 +104,8 @@ p = print  # ignore: pylint
     pattern="eval",
 )
 async def _(event):
-    if len(event.text) > 5:
-        if not event.text[5] == " ":
-            return
+    if len(event.text) > 5 and event.text[5] != " ":
+        return
     if not event.out and not is_fullsudo(event.sender_id):
         return await eor(event, "`This Command Is Sudo Restricted.`")
     if Redis("I_DEV") != "True":
