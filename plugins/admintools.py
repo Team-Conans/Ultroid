@@ -244,10 +244,6 @@ async def pin(msg):
         link = (await msg.client(ExpLink(msg.chat_id, xx))).link
         f"`Pinned` [This Message]({link})"
     ch = msg.pattern_match.group(1)
-    if ch != "silent":
-        pass
-    else:
-        pass
     try:
         await msg.client.pin_message(msg.chat_id, xx, notify=False)
     except BadRequestError:
@@ -315,7 +311,7 @@ async def fastpurger(purg):
         return await eod(purg, "`Reply to a message to purge from.`", time=10)
     async for msg in purg.client.iter_messages(chat, min_id=purg.reply_to_msg_id):
         msgs.append(msg)
-        count = count + 1
+        count += 1
         msgs.append(purg.reply_to_msg_id)
         if len(msgs) == 100:
             await purg.client.delete_messages(chat, msgs)
@@ -363,7 +359,7 @@ async def fastpurgerme(purg):
         min_id=purg.reply_to_msg_id,
     ):
         msgs.append(msg)
-        count = count + 1
+        count += 1
         msgs.append(purg.reply_to_msg_id)
         if len(msgs) == 100:
             await ultroid_bot.delete_messages(chat, msgs)
@@ -382,18 +378,18 @@ async def fastpurgerme(purg):
 )
 async def _(e):
     xx = await eor(e, get_string("com_1"))
-    if e.reply_to_msg_id:
-        name = (await e.get_reply_message()).sender
-        try:
-            await e.client(DeleteUserHistoryRequest(e.chat_id, name.id))
-            await eod(e, f"Successfully Purged All Messages from {name.first_name}")
-        except Exception as er:
-            return await eod(xx, str(er))
-    else:
+    if not e.reply_to_msg_id:
         return await eod(
             xx,
             "`Reply to someone's msg to delete.`",
         )
+
+    name = (await e.get_reply_message()).sender
+    try:
+        await e.client(DeleteUserHistoryRequest(e.chat_id, name.id))
+        await eod(e, f"Successfully Purged All Messages from {name.first_name}")
+    except Exception as er:
+        return await eod(xx, str(er))
 
 
 @ultroid_cmd(

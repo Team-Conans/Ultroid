@@ -184,9 +184,8 @@ async def _(event):
     changelog_str = changelog + f"\n\nClick the below button to update!"
     if len(changelog_str) > 1024:
         await event.edit(get_string("upd_4"))
-        file = open(f"ultroid_updates.txt", "w+")
-        file.write(tl_chnglog)
-        file.close()
+        with open(f"ultroid_updates.txt", "w+") as file:
+            file.write(tl_chnglog)
         await event.edit(
             get_string("upd_5"),
             file="ultroid_updates.txt",
@@ -528,15 +527,10 @@ def page_num(page_number, loaded_plugins, prefix, type):
     number_of_rows = 5
     number_of_cols = 2
     emoji = Redis("EMOJI_IN_HELP")
-    if emoji:
-        multi = emoji
-    else:
-        multi = "✘"
-    helpable_plugins = []
+    multi = emoji or "✘"
     global upage
     upage = page_number
-    for p in loaded_plugins:
-        helpable_plugins.append(p)
+    helpable_plugins = [p for p in loaded_plugins]
     helpable_plugins = sorted(helpable_plugins)
     modules = [
         Button.inline(

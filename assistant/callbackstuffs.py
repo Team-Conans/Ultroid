@@ -57,9 +57,7 @@ async def eupload(event):
 )
 async def send(eve):
     name = (eve.data_match.group(1)).decode("UTF-8")
-    thumb = ""
-    for m in choices(sorted(glob("resources/extras/*.jpg"))):
-        thumb += m
+    thumb = "".join(choices(sorted(glob("resources/extras/*.jpg"))))
     if name.startswith("def"):
         plug_name = name.replace(f"def_plugin_", "")
         plugin = f"plugins/{plug_name}.py"
@@ -481,12 +479,11 @@ async def taglogerr(event):
                 "Cancelled!!",
                 buttons=get_back_button("taglog"),
             )
-        else:
-            await setit(event, var, themssg)
-            await conv.send_message(
-                f"{name} changed to {themssg}",
-                buttons=get_back_button("taglog"),
-            )
+        await setit(event, var, themssg)
+        await conv.send_message(
+            f"{name} changed to {themssg}",
+            buttons=get_back_button("taglog"),
+        )
 
 
 @callback("eaddon")
@@ -591,12 +588,11 @@ async def sfgrp(event):
                 "Cancelled!!",
                 buttons=get_back_button("sfban"),
             )
-        else:
-            await setit(event, var, themssg)
-            await conv.send_message(
-                f"{name} changed to {themssg}",
-                buttons=get_back_button("sfban"),
-            )
+        await setit(event, var, themssg)
+        await conv.send_message(
+            f"{name} changed to {themssg}",
+            buttons=get_back_button("sfban"),
+        )
 
 
 @callback("sfexf")
@@ -618,12 +614,11 @@ async def sfexf(event):
                 "Cancelled!!",
                 buttons=get_back_button("sfban"),
             )
-        else:
-            await setit(event, var, themssg)
-            await conv.send_message(
-                f"{name} changed to {themssg}",
-                buttons=get_back_button("sfban"),
-            )
+        await setit(event, var, themssg)
+        await conv.send_message(
+            f"{name} changed to {themssg}",
+            buttons=get_back_button("sfban"),
+        )
 
 
 @callback("alvcstm")
@@ -659,15 +654,14 @@ async def name(event):
                 "Cancelled!!",
                 buttons=get_back_button("alvcstm"),
             )
-        else:
-            await setit(event, var, themssg)
-            await conv.send_message(
-                "{} changed to {}\n\nAfter Setting All Things Do restart".format(
-                    name,
-                    themssg,
-                ),
-                buttons=get_back_button("alvcstm"),
-            )
+        await setit(event, var, themssg)
+        await conv.send_message(
+            "{} changed to {}\n\nAfter Setting All Things Do restart".format(
+                name,
+                themssg,
+            ),
+            buttons=get_back_button("alvcstm"),
+        )
 
 
 @callback("alvmed")
@@ -694,7 +688,7 @@ async def media(event):
         media = await event.client.download_media(response, "alvpc")
         if (
             not (response.text).startswith("/")
-            and not response.text == ""
+            and response.text != ""
             and not response.media
         ):
             url = response.text
@@ -806,20 +800,19 @@ async def name(event):
                 "Cancelled!!",
                 buttons=get_back_button("pmcstm"),
             )
-        else:
-            if len(themssg) > 4090:
-                return await conv.send_message(
-                    "Message too long!\nGive a shorter message please!!",
-                    buttons=get_back_button("pmcstm"),
-                )
-            await setit(event, var, themssg)
-            await conv.send_message(
-                "{} changed to {}\n\nAfter Setting All Things Do restart".format(
-                    name,
-                    themssg,
-                ),
+        if len(themssg) > 4090:
+            return await conv.send_message(
+                "Message too long!\nGive a shorter message please!!",
                 buttons=get_back_button("pmcstm"),
             )
+        await setit(event, var, themssg)
+        await conv.send_message(
+            "{} changed to {}\n\nAfter Setting All Things Do restart".format(
+                name,
+                themssg,
+            ),
+            buttons=get_back_button("pmcstm"),
+        )
 
 
 @callback("swarn")
@@ -876,7 +869,7 @@ async def media(event):
         media = await event.client.download_media(response, "pmpc")
         if (
             not (response.text).startswith("/")
-            and not response.text == ""
+            and response.text != ""
             and not response.media
         ):
             url = response.text
@@ -1060,15 +1053,14 @@ async def name(event):
                 "Cancelled!!",
                 buttons=get_back_button("chatbot"),
             )
-        else:
-            await setit(event, var, themssg)
-            await conv.send_message(
-                "{} changed to {}".format(
-                    name,
-                    themssg,
-                ),
-                buttons=get_back_button("chatbot"),
-            )
+        await setit(event, var, themssg)
+        await conv.send_message(
+            "{} changed to {}".format(
+                name,
+                themssg,
+            ),
+            buttons=get_back_button("chatbot"),
+        )
 
 
 @callback("onchbot")
@@ -1125,15 +1117,14 @@ async def name(event):
                 "Cancelled!!",
                 buttons=get_back_button("vcb"),
             )
-        else:
-            await setit(event, var, themssg)
-            await conv.send_message(
-                "{} changed to {}\n\nAfter Setting All Things Do restart".format(
-                    name,
-                    themssg,
-                ),
-                buttons=get_back_button("vcb"),
-            )
+        await setit(event, var, themssg)
+        await conv.send_message(
+            "{} changed to {}\n\nAfter Setting All Things Do restart".format(
+                name,
+                themssg,
+            ),
+            buttons=get_back_button("vcb"),
+        )
 
 
 @callback("inli_pic")
@@ -1160,7 +1151,7 @@ async def media(event):
         media = await event.client.download_media(response, "inlpic")
         if (
             not (response.text).startswith("/")
-            and not response.text == ""
+            and response.text != ""
             and not response.media
         ):
             url = response.text
