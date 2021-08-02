@@ -20,9 +20,7 @@ from . import *
 @ultroid_cmd(pattern="addnsfw ?(.*)", admins_only=True)
 async def addnsfw(e):
     action = e.pattern_match.group(1)
-    if not action:
-        action = "mute"
-    elif ("ban" or "kick" or "mute") not in action:
+    if not action or ("ban" or "kick" or "mute") not in action:
         action = "mute"
     nsfw_chat(e.chat_id, action)
     await eor(e, "Added This Chat To Nsfw Filter")
@@ -49,9 +47,8 @@ async def checknsfw(e):
             pass
         if e.file:
             name = e.file.name
-        if name:
-            if check_profanity(name):
-                nsfw += 1
+        if name and check_profanity(name):
+            nsfw += 1
         if pic and not nsfw:
             r = requests.post(
                 "https://api.deepai.org/api/nsfw-detector",

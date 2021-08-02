@@ -231,10 +231,7 @@ async def rextester(event):
             else:
                 lang = "python3"
                 codee = omk
-            if lang == "php":
-                code = f"<?php {codee} ?>"
-            else:
-                code = codee
+            code = f"<?php {codee} ?>" if lang == "php" else codee
             output = await rexec_aio(lang, code)
             stats = output.stats
             if output.errors is not None:
