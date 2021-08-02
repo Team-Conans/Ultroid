@@ -27,9 +27,8 @@ async def airing_anime(event):
     except BaseException:
         info = airing_eps()
         t = info.replace("*", "").replace("`", "")
-        f = open("animes.txt", "w")
-        f.write(t)
-        f.close()
+        with open("animes.txt", "w") as f:
+            f.write(t)
         await event.reply(file="animes.txt")
         remove("anime.txt")
         await event.delete()
